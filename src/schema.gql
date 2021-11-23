@@ -1,0 +1,38 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Sensor {
+  """Sensor id"""
+  id: Int
+
+  """Sensor temperature value"""
+  temperature: Float!
+}
+
+type Query {
+  sensors: [Sensor!]!
+  sensor(id: Int!): Sensor!
+}
+
+type Mutation {
+  createSensor(createSensorInput: CreateSensorInput!): Sensor!
+  updateSensor(updateSensorInput: UpdateSensorInput!): Sensor!
+  removeSensor(id: Int!): Sensor!
+}
+
+input CreateSensorInput {
+  """Sensor id"""
+  id: Int
+
+  """Sensor temperature value"""
+  temperature: Float!
+}
+
+input UpdateSensorInput {
+  """Sensor id"""
+  id: Int
+
+  """Sensor temperature value"""
+  temperature: Float!
+}
