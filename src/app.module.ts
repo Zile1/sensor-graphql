@@ -14,6 +14,7 @@ import { join } from 'path';
       // Store-specific configuration:
       host: 'localhost',
       port: 6379,
+      ttl: 1000,
     }),
     GraphQLModule.forRootAsync({
       useFactory: () => ({

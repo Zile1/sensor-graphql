@@ -14,19 +14,11 @@ export class SensorsService {
   constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
 
   public async create(createSensorInput: CreateSensorInput): Promise<Sensor> {
-    await this.cacheManager.set<Sensor>(
-      `sensor/${createSensorInput.id}`,
-      {
-        temperature: createSensorInput.temperature,
-      },
-      { ttl: 1000 },
-    );
+    await this.cacheManager.set<Sensor>(`sensor/${createSensorInput.id}`, {
+      temperature: createSensorInput.temperature,
+    });
 
     return createSensorInput;
-  }
-
-  public async findAll(): Promise<Array<Sensor>> {
-    return [];
   }
 
   public async findOne(id: number): Promise<Sensor> {
@@ -38,7 +30,7 @@ export class SensorsService {
     updateSensorInput: UpdateSensorInput,
   ): Promise<Sensor> {
     const sensor = await this.findSensorInCache(id);
-    sensor.temperature = updateSensorInput.temperature;
+    sensor.temperature = Math.round(updateSensorInput.temperature);
     await this.cacheManager.set(`sensor/${id}`, sensor);
     return sensor;
   }

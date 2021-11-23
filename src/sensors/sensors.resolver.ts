@@ -15,11 +15,6 @@ export class SensorsResolver {
     return await this.sensorsService.create(createSensorInput);
   }
 
-  @Query(() => [Sensor], { name: 'sensors' })
-  public async findAll() {
-    return await this.sensorsService.findAll();
-  }
-
   @Query(() => Sensor, { name: 'sensor' })
   public async findOne(@Args('id', { type: () => Int }) id: number) {
     return await this.sensorsService.findOne(id);
