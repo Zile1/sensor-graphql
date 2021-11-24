@@ -18,7 +18,6 @@ import { join } from 'path';
     }),
     GraphQLModule.forRootAsync({
       useFactory: () => ({
-        installSubscriptionHandlers: true,
         autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
         debug: true,
         playground: true,

@@ -21,6 +21,11 @@ export class SensorsService {
     return createSensorInput;
   }
 
+  public async findAll(): Promise<Array<Sensor>> {
+    const topicKeys = await this.findAllKeysInCache();
+    return await this.getSensorsByKeys(topicKeys);
+  }
+
   public async findOne(id: number): Promise<Sensor> {
     return await this.findSensorInCache(id);
   }
@@ -47,5 +52,24 @@ export class SensorsService {
       throw new NotFoundException(`Sensor ${id} not found`);
     }
     return sensor;
+  }
+
+  private async findAllKeysInCache(): Promise<Array<string>> {
+    return (await this.cacheManager.get(`sensor/keys`)) ?? [];
+  }
+
+  private async getSensorsByKeys(keys: Array<string>): Promise<Array<Sensor>> {
+    const sensors: Array<Sensor> = [];
+    for (const key of keys) {
+      const sensor = await this.cacheManager.get<Sensor>(key);
+      sensor.id = await SensorsService.getIdFromTopic(key);
+      sensors.push(sensor);
+    }
+    return sensors;
+  }
+
+  public static async getIdFromTopic(topic: string): Promise<number> {
+    const splitTopic = topic.split('/');
+    return parseInt(splitTopic[1]) ?? null;
   }
 }

@@ -11,6 +11,7 @@ type Sensor {
 }
 
 type Query {
+  sensors: [Sensor!]!
   sensor(id: Int!): Sensor!
 }
 
@@ -22,7 +23,7 @@ type Mutation {
 
 input CreateSensorInput {
   """Sensor id"""
-  id: Int
+  id: Int!
 
   """Sensor temperature value"""
   temperature: Float!
@@ -30,7 +31,7 @@ input CreateSensorInput {
 
 input UpdateSensorInput {
   """Sensor id"""
-  id: Int
+  id: Int!
 
   """Sensor temperature value"""
   temperature: Float!
