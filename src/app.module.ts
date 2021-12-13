@@ -21,6 +21,11 @@ import { join } from 'path';
         autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
         debug: true,
         playground: true,
+        cors: {
+          origin: 'http://localhost:4200',
+          methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+          credentials: true,
+        },
       }),
     }),
   ],
